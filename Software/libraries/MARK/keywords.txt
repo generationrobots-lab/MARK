@@ -13,6 +13,7 @@ MARK	KEYWORD1
 #######################################
 
 setLedBar	KEYWORD2
+getAccelX	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
