@@ -94,16 +94,16 @@ bool MARK::setLedBarLevel(int data){
 /***************************************************/
  void MARK::leftCB(){
 	//right_timestampdiff =  micros() - right_timestamp ;
-	if (right_timestampdiff > 10000)
-	{
+	//if (right_timestampdiff > 10000)
+	//{
 	//	Serial.print("left");
 	//	right_timestamp = micros() ;
-	}
+	//}
 	
 }
  
   void MARK::rightCB(){
-	Serial.print("right");
+	//Serial.print("right");
 }
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
