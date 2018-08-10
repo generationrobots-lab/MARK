@@ -14,7 +14,7 @@ MARK::MARK(void){
 //<<destructor>>
 MARK::~MARK(void){/*nothing to destruct*/}
  
- bool MARK::setup(){
+ bool MARK::begin(){
 	 
 	//<<LED BAR>>
 	bar.begin();
@@ -54,10 +54,24 @@ bool MARK::setLedBarLevel(int data){
 /**************** LCD ******************************/
 /***************************************************/
  
- bool MARK::setLcdRGB(int R, int G, int B){
-	   lcd.setRGB(R, G, B); 
+ void MARK::setLcdRGB(unsigned char r, unsigned char g, unsigned char b){
+	   lcd.setRGB(r, g, b);      
+}
 
-         return true;
+ void MARK::setLcdCursor(uint8_t position, uint8_t line){
+	lcd.setCursor(position, line);
+}
+
+ void MARK::lcdPrint(String text){
+	lcd.print(text);    
+}
+
+ void MARK::lcdHome(){
+	lcd.home();
+}
+
+ void MARK::lcdClear(){
+	lcd.clear();    
 }
 
   
@@ -67,6 +81,7 @@ bool MARK::setLedBarLevel(int data){
 /***************************************************/
  
  bool MARK::test(){
+	 lcdClear();
 	setLedBarLevel(10);
 	setLcdRGB(255,0,0);
 	Serial.println("test");
@@ -76,6 +91,8 @@ bool MARK::setLedBarLevel(int data){
 	delay(300);
 	setLcdRGB(0,0,255);
 	setLedBarLevel(0);
-	delay(300);
+	delay(1000);
+	setLcdCursor(0,0);
+	lcdPrint("Salut");
 	return true;
 }

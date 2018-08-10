@@ -13,7 +13,7 @@ MARK	KEYWORD1
 #######################################
 
 setLedBar	KEYWORD2
-setup		KEYWORD2
+begin		KEYWORD2
 test		KEYWORD2
 
 

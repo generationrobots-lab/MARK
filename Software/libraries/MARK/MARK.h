@@ -17,9 +17,15 @@ public:
 	~MARK(void);
 	bool setLedBarLevel(int level);
 	int getLedBarLevel();
-	bool setup(); //return true if done
+	bool begin(); //return true if done
+	void setLcdRGB(unsigned char r, unsigned char g, unsigned char b); //set lcd color, return true if done
+	void lcdPrint(String text);
+	void setLcdCursor(uint8_t, uint8_t);
+	void lcdHome();
+	void lcdClear();
+	
+	//to delete
 	bool test(); //return true if done
-	bool setLcdRGB(int R, int G, int B); //set lcd color, return true if done
 private:
 	int ledLevel;
 };
