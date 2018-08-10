@@ -3,6 +3,13 @@
 Grove_LED_Bar bar(5, 4, 0);
 rgb_lcd lcd;
 
+//volatiles variables for interruptions
+volatile long left_timestamp; //used to stamp start time of an IR pulse
+volatile long left_timestampdiff; //used to stamp start time of an IR pulse
+volatile long right_timestamp; //used to stamp start time of an IR pulse
+volatile long right_timestampdiff; //used to stamp start time of an IR pulse
+
+void * (*leftBumperInterruptionAdress)(void)=NULL;
 
 //<<constructor>> 
 MARK::MARK(void){
@@ -21,11 +28,11 @@ MARK::MARK(void){
 	pinMode(bumperRight, INPUT_PULLUP);
 
 }
- 	
+
 //<<destructor>>
 MARK::~MARK(void){/*nothing to destruct*/}
  
- bool MARK::begin(){
+ bool MARK::begin(void){
 	 
 	//<<LED BAR>>
 	bar.begin();
@@ -40,13 +47,19 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	
 	return true;
 }
- 
+
+ bool MARK::begin(void (*ptrfonction)(void)){
+	
+	begin();
+	leftBumperInterruptionAdress=ptrfonction;
+	return true;
+}
 /***************************************************/
 /**************LED BAR******************************/
 /***************************************************/
 
 //<<getter>>
-int MARK::getLedBarLevel(){
+int MARK::getLedBarLevel(void){
          return(ledLevel);
 }
 
@@ -81,35 +94,43 @@ bool MARK::setLedBarLevel(int data){
 	lcd.print(data);    
 }
 
- void MARK::lcdHome(){
+ void MARK::lcdHome(void){
 	lcd.home();
 }
 
- void MARK::lcdClear(){
+ void MARK::lcdClear(void){
 	lcd.clear();    
 }
 
 /***************************************************/
 /**************** BUMPERS **************************/
 /***************************************************/
- void MARK::leftCB(){
-	//right_timestampdiff =  micros() - right_timestamp ;
-	//if (right_timestampdiff > 10000)
-	//{
-	//	Serial.print("left");
-	//	right_timestamp = micros() ;
-	//}
-	
+
+ void MARK::leftCB(void){
+  left_timestampdiff =  micros() - left_timestamp ;
+  if (left_timestampdiff > 10000)
+  { 
+    Serial.println("Left");
+	(*leftBumperInterruptionAdress)();
+    left_timestamp = micros() ;
+  }
 }
  
-  void MARK::rightCB(){
-	//Serial.print("right");
+  void MARK::rightCB(void){
+  right_timestampdiff =  micros() - right_timestamp ;
+  if (right_timestampdiff > 10000)
+  {
+    Serial.println("Right");
+	
+    right_timestamp = micros() ;
+  }
 }
+
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
 /***************************************************/
  
- bool MARK::test(){
+ bool MARK::test(void){
 	lcdClear();
 	setLedBarLevel(10);
 	setLcdRGB(255,0,0);

@@ -16,9 +16,10 @@ public:
 	//<<functions>>	
 	MARK(void);
 	~MARK(void);
+	bool begin(); //return true if done
+	bool begin( void (*ptrfonction)(void) );
 	bool setLedBarLevel(int level);
 	int getLedBarLevel();
-	bool begin(); //return true if done
 	void setLcdRGB(unsigned char r, unsigned char g, unsigned char b); //set lcd color, return true if done
 	void lcdPrint(String text);
 	void lcdPrint(float data);
@@ -35,12 +36,7 @@ private:
 	int ledLevel;
 	const byte bumperLeft = 2;
 	const byte bumperRight = 3;
-	volatile byte stateBumperLeft;
-	volatile byte stateBumperRight;
-	volatile long left_timestamp; //used to stamp start time of an IR pulse
-	volatile long left_timestampdiff; //used to stamp start time of an IR pulse
-	volatile long right_timestamp; //used to stamp start time of an IR pulse
-	volatile long right_timestampdiff; //used to stamp start time of an IR pulse
+
 
 
 	//<<functions>>	
@@ -52,4 +48,5 @@ private:
 	
 };
 
+extern MARK mark;
 
