@@ -110,7 +110,6 @@ bool MARK::setLedBarLevel(int data){
 /***************************************************/
 /**************** BUMPERS **************************/
 /***************************************************/
-<<<<<<< HEAD
 
  void MARK::leftCB(void){
   left_timestampdiff =  micros() - left_timestamp ;
@@ -132,7 +131,6 @@ bool MARK::setLedBarLevel(int data){
   }
 }
 
-=======
 void MARK::leftCB(){
 	//right_timestampdiff =  micros() - right_timestamp ;
 	//if (right_timestampdiff > 10000)
@@ -167,7 +165,6 @@ void MARK::stopRightMotor(){
 }
 
 
->>>>>>> 43bc54e1eb7ada519d6b6bb5e47ab79a48da1435
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
 /***************************************************/
