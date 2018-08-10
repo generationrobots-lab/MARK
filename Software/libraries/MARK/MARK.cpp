@@ -9,6 +9,17 @@ MARK::MARK(void){
 	
 	//LED BAR
 	ledLevel =0;
+	
+	//BUMPERS
+	left_timestamp = 0; //used to stamp start time of an IR pulse
+	left_timestampdiff = 0; //used to stamp start time of an IR pulse
+
+	right_timestamp = 0; //used to stamp start time of an IR pulse
+	right_timestampdiff = 0; //used to stamp start time of an IR pulse
+
+	pinMode(bumperLeft, INPUT_PULLUP);
+	pinMode(bumperRight, INPUT_PULLUP);
+
 }
  	
 //<<destructor>>
@@ -23,8 +34,9 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	//<<LCD>>
 	lcd.begin(16, 2); //init lcd
   
-	
-	
+	//BUMPERS
+	attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);
 	
 	return true;
 }
@@ -62,8 +74,11 @@ bool MARK::setLedBarLevel(int data){
 	lcd.setCursor(position, line);
 }
 
- void MARK::lcdPrint(String text){
-	lcd.print(text);    
+ void MARK::lcdPrint(String data){
+	lcd.print(data);    
+}
+ void MARK::lcdPrint(float data){
+	lcd.print(data);    
 }
 
  void MARK::lcdHome(){
@@ -74,14 +89,28 @@ bool MARK::setLedBarLevel(int data){
 	lcd.clear();    
 }
 
-  
+/***************************************************/
+/**************** BUMPERS **************************/
+/***************************************************/
+ void MARK::leftCB(){
+	//right_timestampdiff =  micros() - right_timestamp ;
+	if (right_timestampdiff > 10000)
+	{
+	//	Serial.print("left");
+	//	right_timestamp = micros() ;
+	}
+	
+}
  
+  void MARK::rightCB(){
+	Serial.print("right");
+}
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
 /***************************************************/
  
  bool MARK::test(){
-	 lcdClear();
+	lcdClear();
 	setLedBarLevel(10);
 	setLcdRGB(255,0,0);
 	Serial.println("test");
