@@ -13,13 +13,12 @@ class MARK {
 public:
 	MARK(void);
 	~MARK(void);
-	void setLedBar(int level);
-	float getAccelX();
-	
-	
+	bool setLedBarLevel(int level);
+	int getLedBarLevel();
+	bool setup(); //return true if done
+	bool test(); //return true if done
 private:
-	
-
+	int ledLevel;
 };
 
 
