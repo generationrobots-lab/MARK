@@ -9,7 +9,7 @@
 #ifndef MARK_H
 #define MARK_H
 #define I2C_ADDRESS 0x0f
-
+#endif
 
 class MARK {
 public:
@@ -49,10 +49,8 @@ private:
 	static void rightCB ();
 	
 };
-<<<<<<< HEAD
 
 extern MARK mark;
-=======
-#endif
->>>>>>> 43bc54e1eb7ada519d6b6bb5e47ab79a48da1435
+
+
 

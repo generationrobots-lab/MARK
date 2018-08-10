@@ -131,20 +131,6 @@ bool MARK::setLedBarLevel(int data){
   }
 }
 
-void MARK::leftCB(){
-	//right_timestampdiff =  micros() - right_timestamp ;
-	//if (right_timestampdiff > 10000)
-	//{
-	//	Serial.print("left");
-	//	right_timestamp = micros() ;
-	//}
-	Serial.print("bonjour");
-}
- 
-void MARK::rightCB(){
-	//Serial.print("right");
-}
-
 /***************************************************/
 /**************** MOTOR ****************************/
 /***************************************************/
