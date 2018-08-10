@@ -26,6 +26,8 @@ MARK::MARK(void){
 
 	pinMode(bumperLeft, INPUT_PULLUP);
 	pinMode(bumperRight, INPUT_PULLUP);
+	
+	
 
 }
 
@@ -41,6 +43,9 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	//<<LCD>>
 	lcd.begin(16, 2); //init lcd
   
+	//MOTOR
+	Motor.begin(I2C_ADDRESS); //init motors
+	
 	//BUMPERS
 	attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);
@@ -80,7 +85,7 @@ bool MARK::setLedBarLevel(int data){
 /***************************************************/
  
  void MARK::setLcdRGB(unsigned char r, unsigned char g, unsigned char b){
-	   lcd.setRGB(r, g, b);      
+	lcd.setRGB(r, g, b);      
 }
 
  void MARK::setLcdCursor(uint8_t position, uint8_t line){
@@ -105,6 +110,7 @@ bool MARK::setLedBarLevel(int data){
 /***************************************************/
 /**************** BUMPERS **************************/
 /***************************************************/
+<<<<<<< HEAD
 
  void MARK::leftCB(void){
   left_timestampdiff =  micros() - left_timestamp ;
@@ -126,6 +132,42 @@ bool MARK::setLedBarLevel(int data){
   }
 }
 
+=======
+void MARK::leftCB(){
+	//right_timestampdiff =  micros() - right_timestamp ;
+	//if (right_timestampdiff > 10000)
+	//{
+	//	Serial.print("left");
+	//	right_timestamp = micros() ;
+	//}
+	Serial.print("bonjour");
+}
+ 
+void MARK::rightCB(){
+	//Serial.print("right");
+}
+
+/***************************************************/
+/**************** MOTOR ****************************/
+/***************************************************/
+void MARK::setLeftMotor(int _speed){
+	Motor.speed(MOTOR1, _speed);
+}
+
+void MARK::setRighMotor(int _speed){
+	Motor.speed(MOTOR2, _speed);
+}
+
+void MARK::stopLeftMotor(){
+	Motor.stop(MOTOR1);
+}
+
+void MARK::stopRightMotor(){
+	Motor.stop(MOTOR2);
+}
+
+
+>>>>>>> 43bc54e1eb7ada519d6b6bb5e47ab79a48da1435
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
 /***************************************************/

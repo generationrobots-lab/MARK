@@ -12,7 +12,6 @@ void setup() {
   Motor.stop(MOTOR1);
   Motor.stop(MOTOR2);
   delay(1000);
-
 }
 
 void loop() {
@@ -26,7 +25,6 @@ void loop() {
   Motor.speed(MOTOR2, -30);
   delay(1000);
   Motor.stop(MOTOR1);
-  Motor.stop(MOTOR2);
   delay(1000);
 }
 
