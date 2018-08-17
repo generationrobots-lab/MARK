@@ -2,6 +2,8 @@
 
 Grove_LED_Bar bar(5, 4, 0);
 rgb_lcd lcd;
+Ultrasonic usFront(8);
+Ultrasonic usBack(10);
 
 //volatiles variables for interruptions
 volatile long left_timestamp; //used to stamp start time of an IR pulse
@@ -27,8 +29,9 @@ MARK::MARK(void){
 	pinMode(bumperLeft, INPUT_PULLUP);
 	pinMode(bumperRight, INPUT_PULLUP);
 	
+	pinMode(infrared, INPUT);
 	
-
+	pinMode(battery, INPUT);
 }
 
 //<<destructor>>
@@ -37,18 +40,16 @@ MARK::~MARK(void){/*nothing to destruct*/}
  bool MARK::begin(void){
 	 
 	//<<LED BAR>>
-	bar.begin();
-	bar.setBits(0x3ff);	
-	
+	bar.begin();	
 	//<<LCD>>
 	lcd.begin(16, 2); //init lcd
   
-	//MOTOR
+	//<<MOTOR>>
 	Motor.begin(I2C_ADDRESS); //init motors
 	
-	//BUMPERS
-	attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
-	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);
+	//<<BUMPERS>>
+	/*attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);*/
 	
 	return true;
 }
@@ -115,7 +116,7 @@ bool MARK::setLedBarLevel(int data){
   left_timestampdiff =  micros() - left_timestamp ;
   if (left_timestampdiff > 10000)
   { 
-    Serial.println("Left");
+    //Serial.println("Left");
 	(*leftBumperInterruptionAdress)();
     left_timestamp = micros() ;
   }
@@ -125,11 +126,20 @@ bool MARK::setLedBarLevel(int data){
   right_timestampdiff =  micros() - right_timestamp ;
   if (right_timestampdiff > 10000)
   {
-    Serial.println("Right");
-	
-    right_timestamp = micros() ;
+    //Serial.println("Right");
+	right_timestamp = micros() ;
   }
 }
+
+bool MARK::getBumper(String _side){
+	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+		return(digitalRead(bumperRight));
+	}
+	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+		return(digitalRead(bumperLeft));
+	}
+}
+
 
 /***************************************************/
 /**************** MOTOR ****************************/
@@ -150,11 +160,40 @@ void MARK::stopRightMotor(){
 	Motor.stop(MOTOR2);
 }
 
+/***************************************************/
+/************** INFRARED ***************************/
+/***************************************************/
+bool MARK::gedInfrared(void){
+	return(digitalRead(infrared));
+}
+
+/***************************************************/
+/************** BATTERY ****************************/
+/***************************************************/
+float MARK::getVoltage(void){
+	float voltage = analogRead(A0);
+	return((3 * voltage * 4980 / 1023.00)); //set gain to 3 on divider board
+}
+int MARK::getBatteryLevel(void){
+	return(map(getVoltage(), 6500, 8400, 0, 100));
+}
+
+/***************************************************/
+/************** ULTRASONIC *************************/
+/***************************************************/
+int MARK::getUsDist(String _pos){
+	if(_pos == "Front" || _pos == "front" || _pos == "FRONT" ||_pos == "F" || _pos == "f"){
+		return(usFront.MeasureInCentimeters());
+	}
+	if(_pos == "Back" || _pos == "back" || _pos == "BACK" || _pos == "B" ||_pos == "b"){
+		return(usBack.MeasureInCentimeters());
+	}
+}
+
 
 /***************************************************/
 /**************TO DELETE AT THE END*****************/
-/***************************************************/
- 
+/***************************************************/ 
  bool MARK::test(void){
 	lcdClear();
 	setLedBarLevel(10);

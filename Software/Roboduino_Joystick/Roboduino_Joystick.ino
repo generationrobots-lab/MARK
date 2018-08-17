@@ -12,15 +12,16 @@ rgb_lcd lcd;
 void setup()
 {
     Serial.begin(9600);
-
+    pinMode(A2,INPUT);
+    pinMode(A3,INPUT); 
     lcd.begin(16, 2);
     lcd.setRGB(200, 200, 200);
 }
 
 void loop()
 {
-    int sensorValue1 = analogRead(A4);
-    int sensorValue2 = analogRead(A5);
+    int sensorValue1 = analogRead(A2);
+    int sensorValue2 = analogRead(A3);
     lcd.setCursor(0,0);
     lcd.print("The X and Y is:");
     lcd.setCursor(0,1);
