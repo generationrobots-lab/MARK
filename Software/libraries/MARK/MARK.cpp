@@ -4,6 +4,10 @@ Grove_LED_Bar bar(5, 4, 0);
 rgb_lcd lcd;
 Ultrasonic usFront(8);
 Ultrasonic usBack(10);
+Servo myServo;
+LSM6DS3 myIMU( I2C_MODE, 0x6A );
+Encoder knobLeft(18, 29);
+Encoder knobRight(27, 19);
 
 //volatiles variables for interruptions
 volatile long left_timestamp; //used to stamp start time of an IR pulse
@@ -50,6 +54,10 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	//<<BUMPERS>>
 	/*attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);*/
+	//<Servo>
+	myServo.attach(pinServo);
+	//<IMU>
+	myIMU.begin();
 	
 	return true;
 }
@@ -148,7 +156,7 @@ void MARK::setLeftMotor(int _speed){
 	Motor.speed(MOTOR1, _speed);
 }
 
-void MARK::setRighMotor(int _speed){
+void MARK::setRightMotor(int _speed){
 	Motor.speed(MOTOR2, _speed);
 }
 
@@ -171,7 +179,7 @@ bool MARK::gedInfrared(void){
 /************** BATTERY ****************************/
 /***************************************************/
 float MARK::getVoltage(void){
-	float voltage = analogRead(A0);
+	float voltage = analogRead(battery);
 	return((3 * voltage * 4980 / 1023.00)); //set gain to 3 on divider board
 }
 int MARK::getBatteryLevel(void){
@@ -190,6 +198,81 @@ int MARK::getUsDist(String _pos){
 	}
 }
 
+/***************************************************/
+/************** JOYSTICK ***************************/
+/***************************************************/
+int MARK::getJoystickY(void){
+	return(analogRead(joystickY));
+}
+
+int MARK::getJoystickX(void){
+	if(analogRead(joystickX) < 1023){
+		return(analogRead(joystickX));
+	}
+}
+
+int MARK::getJoystickClic(void){
+	if(analogRead(joystickX) == 1023){
+		return(analogRead(joystickX));
+	}
+}
+
+/***************************************************/
+/************** SERVO ******************************/
+/***************************************************/
+void MARK::setServo(int _pos){
+	myServo.write(_pos);
+}
+
+int MARK::getServo(void){
+	return(myServo.read());
+}
+
+/***************************************************/
+/************** ACCELEROMETER **********************/
+/***************************************************/
+float MARK::getAccelX(void){
+	return(myIMU.readFloatAccelX());
+}
+float MARK::getAccelY(void){
+	return(myIMU.readFloatAccelY());
+}
+float MARK::getAccelZ(void){
+	return(myIMU.readFloatAccelZ());
+}
+float MARK::getGyroX(void){
+	return(myIMU.readFloatGyroX());
+}
+float MARK::getGyroY(void){
+	return(myIMU.readFloatGyroY());
+}
+float MARK::getGyroZ(void){
+	return(myIMU.readFloatGyroZ());
+}
+float MARK::getTemp(void){
+	return(myIMU.readTempC());
+}
+
+/***************************************************/
+/************** ENCODER ****************************/
+/***************************************************/
+long MARK::getEncoder(String _side){
+	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+		return(knobRight.read());
+	}
+	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+		return(knobLeft.read());
+	}
+}
+
+void MARK::resetEncoder(String _side){
+	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+		knobRight.write(0);
+	}
+	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+		knobLeft.write(0);
+	}
+}
 
 /***************************************************/
 /**************TO DELETE AT THE END*****************/

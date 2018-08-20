@@ -1,7 +1,6 @@
 #include <MARK.h>
 
 MARK myrobot;//initialize an instance of the class
-//Servo mservo;
 int pos;
 bool parechoc = 0;
 bool joy = 0;
@@ -11,21 +10,32 @@ void setup() {
   Serial.begin(9600);
   Serial.println("init done");
   myrobot.begin();
-  /*nothing to setup*/
-  //mservo.attach(12);
 }
 
 void loop() {
   //bumper();
   //accelerometer();
   Voltage();
+  //encoder();
+  //distance();
   //servo();
-  //joystick();
-  delay(100);
+  joystick();
+  delay(300);
 }
 
-/*void bumper() {
-  if (myrobot.getBumperR() == 0) {
+void distance(void){
+  Serial.print("front us");
+  Serial.println(myrobot.getUsDist("front"));
+  Serial.print("back us");
+  Serial.println(myrobot.getUsDist("back"));
+}
+
+void bumper() {
+  Serial.print("my bumper r : ");
+  Serial.print(myrobot.getBumper("r"));
+  Serial.print(" my bumper l : ");
+  Serial.println(myrobot.getBumper("l"));
+  if (myrobot.getBumper("r") == 0) {
     myrobot.setLeftMotor(-100);
     myrobot.setRightMotor(-100);
     parechoc = 0 ;
@@ -36,23 +46,26 @@ void loop() {
       myrobot.stopRightMotor();
     }
   }
-  }
+}
 
   void joystick() {
   if (parechoc = 1) {
     joy = 1;
     Serial.print("joy ");
-    Serial.println(map(myrobot.getJoystickY(), 268, 775, 100, -100));
-    myrobot.setLeftMotor(map(myrobot.getJoystickY(), 268, 775, 100, -100));
-    myrobot.setRightMotor(map(myrobot.getJoystickY(), 268, 775, 100, -100));
+    Serial.println(map(myrobot.getJoystickY(), 268, 775, -100, 100));
+    myrobot.setLeftMotor(map(myrobot.getJoystickY(), 268, 775, -100, 100));
+    myrobot.setRightMotor(map(myrobot.getJoystickY(), 268, 775, -100, 100));
   } else {
     joy = 0;
     myrobot.stopLeftMotor();
     myrobot.stopRightMotor();
   }
-  }
+}
+  
   void servo() {
-  myrobot.servoWrite(map(myrobot.getJoystickX(), 210, 755, 180, 0));
+  myrobot.setServo(map(myrobot.getJoystickX(), 210, 755, 180, 0));
+  Serial.print("myservo :");
+  Serial.println(myrobot.getServo());
   //myrobot.setLedBarLevel(map(myrobot.getJoystickX(), 200, 755, 0, 10));
   }
 
@@ -76,31 +89,30 @@ void loop() {
   Serial.println(myrobot.getGyroZ());
 
   Serial.print("Temp     ");
-  Serial.println(myrobot.getTempC());
-  }*/
+  Serial.println(myrobot.getTemp());
+  }
 
 void Voltage(void) {
   myrobot.lcdClear();
   myrobot.lcdHome();
   myrobot.lcdPrint(myrobot.getVoltage());
   Serial.println(myrobot.getBatteryLevel());
-  myrobot.setLedBarLevel(myrobot.getBattery() / 10);
+  myrobot.setLedBarLevel(myrobot.getBatteryLevel() / 10);
 }
-/*void getUltrasonic(void) {
-  Serial.print("US front \n value : ");
-  Serial.print(myrobot.getUsFront());
-  Serial.print(" Distance : ");
-  Serial.println(myrobot.getUsDistFront());
-
-  Serial.print("US back \n value : ");
-  Serial.print(myrobot.getUsBack());
-  Serial.print(" Distance : ");
-  Serial.println(myrobot.getUsDistBack());
-  }*/
 
 void setScreenOff(void) {
   Serial.print("Bar Level : ");
   Serial.println(myrobot.getLedBarLevel());
+}
 
+void encoder(void){
+  Serial.print("r encoder : ");
+  Serial.println(myrobot.getEncoder("r"));
+  Serial.print("l encoder : ");
+  Serial.println(myrobot.getEncoder("l"));
+  if(myrobot.getEncoder("l") > 1000 || myrobot.getEncoder("r") > 10000){
+    myrobot.resetEncoder("r");
+    myrobot.resetEncoder("l");
+  }
 }
 

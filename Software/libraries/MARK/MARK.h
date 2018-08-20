@@ -5,6 +5,8 @@
 #include "rgb_lcd.h"
 #include "Grove_I2C_Motor_Driver.h"
 #include "Ultrasonic.h"
+#include "Servo.h"
+#include "Encoder.h"
 
 
 #ifndef MARK_H
@@ -31,11 +33,9 @@ public:
 	void lcdClear();
 	//Motors
 	void setLeftMotor(int _speed);
-	void setRighMotor(int _speed);
+	void setRightMotor(int _speed);
 	void stopLeftMotor();
 	void stopRightMotor();
-	
-	static void leftCB ();
 	//Infrared
 	bool gedInfrared();
 	//Battery
@@ -45,7 +45,26 @@ public:
 	int getUsDist(String _pos);
 	//Bumper
 	bool getBumper(String _side);
-
+	//Joystick
+	int getJoystickY(void);
+	int getJoystickX(void);
+	int getJoystickClic(void);
+	//Servo
+	void setServo(int);
+	int getServo(void);
+	//Accelerometer
+	float getAccelX(void);
+	float getAccelY(void);
+	float getAccelZ(void);
+	float getGyroX(void);
+	float getGyroY(void);
+	float getGyroZ(void);
+	float getTemp(void);
+	//Encoder
+	long getEncoder(String _side);
+	void resetEncoder(String _side);
+	
+	static void leftCB ();
 	
 	//to delete
 	bool test(); //return true if done
@@ -56,7 +75,16 @@ private:
 	const byte bumperLeft = 2;
 	const byte bumperRight = 3;
 	const byte infrared = 6;
+	const byte leftEncoA = 18;
+	const byte leftEncoB = 29;
+	const byte rightEncoA = 27;
+	const byte rightEncoB = 19;
+	const byte pinUsFront = 8;
+	const byte pinUsBack =	10;
+	const byte pinServo = 12;
 	const byte battery = A0;
+	const byte joystickX = A2;
+	const byte joystickY = A3;
 
 
 
