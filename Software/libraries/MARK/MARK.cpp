@@ -9,7 +9,11 @@ LSM6DS3 myIMU( I2C_MODE, 0x6A );
 Encoder knobLeft(18, 29);
 Encoder knobRight(27, 19);
 
+
 //volatiles variables for interruptions
+volatile byte stateBumperLeft = LOW;
+volatile byte stateBumperRight = LOW ;
+volatile byte interruptFlag = LOW;
 volatile long left_timestamp; //used to stamp start time of an IR pulse
 volatile long left_timestampdiff; //used to stamp start time of an IR pulse
 volatile long right_timestamp; //used to stamp start time of an IR pulse
@@ -34,8 +38,9 @@ MARK::MARK(void){
 	pinMode(bumperRight, INPUT_PULLUP);
 	
 	pinMode(infrared, INPUT);
-	
+
 	pinMode(battery, INPUT);
+
 }
 
 //<<destructor>>
@@ -51,9 +56,17 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	//<<MOTOR>>
 	Motor.begin(I2C_ADDRESS); //init motors
 	
+
+	if(digitalRead(bumperRight)>126){
+		stateBumperRight = !stateBumperRight;
+	}
+	if(digitalRead(bumperLeft)>126){
+		stateBumperLeft = !stateBumperLeft;
+	}
+
 	//<<BUMPERS>>
-	/*attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
-	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);*/
+	attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
+	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);
 	//<Servo>
 	myServo.attach(pinServo);
 	//<IMU>
@@ -62,12 +75,7 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	return true;
 }
 
- bool MARK::begin(void (*ptrfonction)(void)){
-	
-	begin();
-	leftBumperInterruptionAdress=ptrfonction;
-	return true;
-}
+
 /***************************************************/
 /**************LED BAR******************************/
 /***************************************************/
@@ -124,8 +132,9 @@ bool MARK::setLedBarLevel(int data){
   left_timestampdiff =  micros() - left_timestamp ;
   if (left_timestampdiff > 10000)
   { 
-    //Serial.println("Left");
-	(*leftBumperInterruptionAdress)();
+    stateBumperLeft = !stateBumperLeft;
+    interruptFlag=HIGH;
+	
     left_timestamp = micros() ;
   }
 }
@@ -134,21 +143,29 @@ bool MARK::setLedBarLevel(int data){
   right_timestampdiff =  micros() - right_timestamp ;
   if (right_timestampdiff > 10000)
   {
-    //Serial.println("Right");
+    stateBumperRight=!stateBumperRight;
+    interruptFlag=HIGH;
 	right_timestamp = micros() ;
   }
 }
 
-bool MARK::getBumper(String _side){
+byte MARK::getBumper(String _side){
 	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
-		return(digitalRead(bumperRight));
+		return(stateBumperRight);
 	}
 	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
-		return(digitalRead(bumperLeft));
+		return(stateBumperLeft);
 	}
 }
 
-
+byte MARK::getInterruptFlag(void){
+	return(interruptFlag);
+	
+}
+void MARK::resetInterruptFlag(void){
+	interruptFlag = LOW;
+	
+}
 /***************************************************/
 /**************** MOTOR ****************************/
 /***************************************************/
@@ -160,11 +177,11 @@ void MARK::setRightMotor(int _speed){
 	Motor.speed(MOTOR2, _speed);
 }
 
-void MARK::stopLeftMotor(){
+void MARK::stopLeftMotor(void){
 	Motor.stop(MOTOR1);
 }
 
-void MARK::stopRightMotor(){
+void MARK::stopRightMotor(void){
 	Motor.stop(MOTOR2);
 }
 
@@ -206,15 +223,14 @@ int MARK::getJoystickY(void){
 }
 
 int MARK::getJoystickX(void){
-	if(analogRead(joystickX) < 1023){
 		return(analogRead(joystickX));
-	}
 }
 
-int MARK::getJoystickClic(void){
+bool MARK::getJoystickClic(void){
 	if(analogRead(joystickX) == 1023){
-		return(analogRead(joystickX));
+		return(true);
 	}
+	else {return(false);}
 }
 
 /***************************************************/
@@ -272,24 +288,4 @@ void MARK::resetEncoder(String _side){
 	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
 		knobLeft.write(0);
 	}
-}
-
-/***************************************************/
-/**************TO DELETE AT THE END*****************/
-/***************************************************/ 
- bool MARK::test(void){
-	lcdClear();
-	setLedBarLevel(10);
-	setLcdRGB(255,0,0);
-	Serial.println("test");
-	delay(300);
-	setLcdRGB(0,255,0);
-	setLedBarLevel(5);
-	delay(300);
-	setLcdRGB(0,0,255);
-	setLedBarLevel(0);
-	delay(1000);
-	setLcdCursor(0,0);
-	lcdPrint("Salut");
-	return true;
 }

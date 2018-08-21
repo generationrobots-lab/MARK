@@ -20,7 +20,6 @@ public:
 	MARK(void);
 	~MARK(void);
 	bool begin(); //return true if done
-	bool begin( void (*ptrfonction)(void) );
 	//led bar
 	bool setLedBarLevel(int level);
 	int getLedBarLevel();
@@ -44,11 +43,13 @@ public:
 	//Ultrasonic
 	int getUsDist(String _pos);
 	//Bumper
-	bool getBumper(String _side);
+	byte getBumper(String _side);
+	byte getInterruptFlag();
+	void resetInterruptFlag();
 	//Joystick
 	int getJoystickY(void);
 	int getJoystickX(void);
-	int getJoystickClic(void);
+	bool getJoystickClic(void);
 	//Servo
 	void setServo(int);
 	int getServo(void);
@@ -63,9 +64,7 @@ public:
 	//Encoder
 	long getEncoder(String _side);
 	void resetEncoder(String _side);
-	
-	static void leftCB ();
-	
+
 	//to delete
 	bool test(); //return true if done
 private:
@@ -89,7 +88,7 @@ private:
 
 
 	//<<functions>>	
-	
+	static void leftCB ();
 	static void rightCB ();
 	
 };
