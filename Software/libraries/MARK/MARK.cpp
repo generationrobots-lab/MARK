@@ -19,8 +19,6 @@ volatile long left_timestampdiff; //used to stamp start time of an IR pulse
 volatile long right_timestamp; //used to stamp start time of an IR pulse
 volatile long right_timestampdiff; //used to stamp start time of an IR pulse
 
-void * (*leftBumperInterruptionAdress)(void)=NULL;
-
 //<<constructor>> 
 MARK::MARK(void){
 	
@@ -33,6 +31,7 @@ MARK::MARK(void){
 
 	right_timestamp = 0; //used to stamp start time of an IR pulse
 	right_timestampdiff = 0; //used to stamp start time of an IR pulse
+
 
 	pinMode(bumperLeft, INPUT_PULLUP);
 	pinMode(bumperRight, INPUT_PULLUP);
@@ -49,14 +48,24 @@ MARK::~MARK(void){/*nothing to destruct*/}
  bool MARK::begin(void){
 	 
 	//<<LED BAR>>
+	Serial.println("LED BAR ");
 	bar.begin();	
+
 	//<<LCD>>
+	Serial.println("- LCD ");
 	lcd.begin(16, 2); //init lcd
   
 	//<<MOTOR>>
+	Serial.println("- MOTOR ");
 	Motor.begin(I2C_ADDRESS); //init motors
 	
+	//<<WIFI>>
+	Serial.println("- WIFI ");
+	Serial3.begin(115200); //Init serial connection on port 3 for wifi
+	Wire.begin();
 
+	//<<BUMPERS>>
+	Serial.println("- BUMPERS ");
 	if(digitalRead(bumperRight)>126){
 		stateBumperRight = !stateBumperRight;
 	}
@@ -64,12 +73,15 @@ MARK::~MARK(void){/*nothing to destruct*/}
 		stateBumperLeft = !stateBumperLeft;
 	}
 
-	//<<BUMPERS>>
 	attachInterrupt(digitalPinToInterrupt(bumperLeft), leftCB, CHANGE);
 	attachInterrupt(digitalPinToInterrupt(bumperRight), rightCB, CHANGE);
+
 	//<Servo>
+	Serial.println("- SERVO ");
 	myServo.attach(pinServo);
+
 	//<IMU>
+	Serial.println("- IMU ");
 	myIMU.begin();
 	
 	return true;
@@ -188,7 +200,7 @@ void MARK::stopRightMotor(void){
 /***************************************************/
 /************** INFRARED ***************************/
 /***************************************************/
-bool MARK::gedInfrared(void){
+bool MARK::getInfrared(void){
 	return(digitalRead(infrared));
 }
 
@@ -288,4 +300,88 @@ void MARK::resetEncoder(String _side){
 	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
 		knobLeft.write(0);
 	}
+}
+
+/***************************************************/
+/***************** WIFI ****************************/
+/***************************************************/
+void MARK::sendWifiCmd(char *cmd){
+	Serial.println(cmd);
+   // if(NULL == cmd)return;
+    Serial3.println(cmd);
+}
+void MARK::waitWifiResult(void)
+{
+
+    while(1)
+    {
+LOOP1:
+        char c1=0;
+        if(Serial3.available()>=2)
+        {
+            c1 = Serial3.read();
+            if(c1 == 'O' && 'K' == Serial3.read())return;       // OK means over
+        }
+        
+        if('('==c1)
+        {
+            while(Serial3.available()<3);
+            Serial3.read();
+            Serial3.read();
+            Serial3.read();
+
+            int d = 0;
+            while(1)
+            {
+                if(Serial3.available() && '"' == Serial3.read());      // find "
+                {
+                    while(1)
+                    {
+                        if(Serial3.available())
+                        {
+                            char c = Serial3.read();
+                            ap_buf[ap_cnt][d++] = c; //save datas on buffer
+                            if(c == '"' || d==16)
+                            {
+                                ap_buf[ap_cnt][d-1] = '\0';
+                                ap_cnt++;
+                                goto LOOP1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+void MARK::displayWifiAnswer(void)
+{
+    char strtmp[16];
+    sprintf(strtmp, "get %d ap : ", ap_cnt);
+    Serial.println(strtmp);        // Print the String
+
+    int cnt = ap_cnt;
+    int offset = 0;
+    while(1)
+    {
+        if(cnt>=8)
+        {
+            for(int i=0; i<8; i++)
+            {
+                Serial.println(ap_buf[8*offset+i]);
+            }
+            cnt-=8;
+            offset++;
+        }
+        else 
+        {
+            for(int i=0; i<cnt; i++)
+            {
+                Serial.println(ap_buf[8*offset+i]);
+            }
+            return;
+        }
+        delay(2000);
+    }
 }

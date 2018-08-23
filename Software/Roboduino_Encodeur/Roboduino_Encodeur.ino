@@ -10,7 +10,7 @@
 
 #include <Encoder.h>
 Encoder knobLeft(18, 29);
-Encoder knobRight(19, 27 );
+Encoder knobRight(27, 19 );
 
 void setup() {
   Serial.begin(9600);

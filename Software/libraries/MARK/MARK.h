@@ -36,7 +36,7 @@ public:
 	void stopLeftMotor();
 	void stopRightMotor();
 	//Infrared
-	bool gedInfrared();
+	bool getInfrared();
 	//Battery
 	float getVoltage(void);
 	int getBatteryLevel(void);
@@ -64,6 +64,12 @@ public:
 	//Encoder
 	long getEncoder(String _side);
 	void resetEncoder(String _side);
+	// WIFI
+	void sendWifiCmd(char *cmd);
+	void waitWifiResult(void);
+	void displayWifiAnswer(void);
+	
+
 
 	//to delete
 	bool test(); //return true if done
@@ -84,6 +90,10 @@ private:
 	const byte battery = A0;
 	const byte joystickX = A2;
 	const byte joystickY = A3;
+	char ap_buf[30][16];
+	int ap_cnt =0;
+
+
 
 
 
