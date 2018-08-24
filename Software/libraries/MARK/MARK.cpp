@@ -312,7 +312,7 @@ void MARK::sendWifiCmd(char *cmd){
 }
 void MARK::waitWifiResult(void)
 {
-
+	ap_cnt = 0;
     while(1)
     {
 LOOP1:
@@ -320,7 +320,9 @@ LOOP1:
         if(Serial3.available()>=2)
         {
             c1 = Serial3.read();
-            if(c1 == 'O' && 'K' == Serial3.read())return;       // OK means over
+            if(c1 == 'O' && 'K' == Serial3.read()){
+            	return;       // OK means over
+            }
         }
         
         if('('==c1)
@@ -358,7 +360,6 @@ LOOP1:
 void MARK::displayWifiAnswer(void)
 {
     char strtmp[16];
-    sprintf(strtmp, "get %d ap : ", ap_cnt);
     Serial.println(strtmp);        // Print the String
 
     int cnt = ap_cnt;
