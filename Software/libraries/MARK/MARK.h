@@ -1,3 +1,12 @@
+/*
+   _____ _____  _               ____  
+  / ____|  __ \| |        /\   |  _ \ 
+ | |  __| |__) | |       /  \  | |_) |
+ | | |_ |  _  /| |      / /\ \ |  _ < 
+ | |__| | | \ \| |____ / ____ \| |_) |
+  \_____|_|  \_\______/_/    \_\____/
+
+  */
 #include "Arduino.h"
 #include "Wire.h"
 #include "Grove_LED_Bar.h"
@@ -69,10 +78,6 @@ public:
 	void waitWifiResult(void);
 	void displayWifiAnswer(void);
 	
-
-
-	//to delete
-	bool test(); //return true if done
 private:
 
 	//<<vars>>

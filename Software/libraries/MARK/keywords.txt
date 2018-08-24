@@ -1,3 +1,13 @@
+#
+#   _____ _____  _               ____  
+#  / ____|  __ \| |        /\   |  _ \ 
+# | |  __| |__) | |       /  \  | |_) |
+# | | |_ |  _  /| |      / /\ \ |  _ < 
+# | |__| | | \ \| |____ / ____ \| |_) |
+#  \_____|_|  \_\______/_/    \_\____/
+#
+#
+
 #######################################
 # Syntax Coloring Map For LED13
 #######################################
@@ -12,11 +22,42 @@ MARK	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-setLedBar	KEYWORD2
-begin		KEYWORD2
-test		KEYWORD2
-
-
+begin					KEYWORD2
+setLedBarLevel			KEYWORD2
+getLedBarLevel			KEYWORD2
+setLcdRGB				KEYWORD2
+lcdPrint				KEYWORD2
+setLcdCursor			KEYWORD2
+lcdHome					KEYWORD2
+lcdClear				KEYWORD2
+setLeftMotor			KEYWORD2
+setRightMotor			KEYWORD2
+stopLeftMotor			KEYWORD2
+stopRightMotor			KEYWORD2
+getInfrared				KEYWORD2
+getVoltage				KEYWORD2
+getBatteryLevel			KEYWORD2
+getUsDist				KEYWORD2
+getBumper				KEYWORD2
+getInterruptFlag		KEYWORD2
+resetInterruptFlag		KEYWORD2
+getJoystickY			KEYWORD2
+getJoystickX			KEYWORD2
+getJoystickClic			KEYWORD2
+setServo				KEYWORD2
+getServo				KEYWORD2
+getAccelX				KEYWORD2
+getAccelY				KEYWORD2
+getAccelZ				KEYWORD2
+getGyroX				KEYWORD2
+getGyroY				KEYWORD2
+getGyroZ				KEYWORD2
+getTemp					KEYWORD2
+getEncoder				KEYWORD2
+resetEncoder			KEYWORD2
+sendWifiCmd				KEYWORD2
+waitWifiResult			KEYWORD2
+displayWifiAnswer		KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

@@ -1,3 +1,13 @@
+/*
+   _____ _____  _               ____  
+  / ____|  __ \| |        /\   |  _ \ 
+ | |  __| |__) | |       /  \  | |_) |
+ | | |_ |  _  /| |      / /\ \ |  _ < 
+ | |__| | | \ \| |____ / ____ \| |_) |
+  \_____|_|  \_\______/_/    \_\____/
+
+  */
+
 #include "MARK.h" //include the declaration for this class
 
 Grove_LED_Bar bar(5, 4, 0);
@@ -360,6 +370,7 @@ LOOP1:
 void MARK::displayWifiAnswer(void)
 {
     char strtmp[16];
+    //sprintf(strtmp, "get %d ap : ", ap_cnt);
     Serial.println(strtmp);        // Print the String
 
     int cnt = ap_cnt;
