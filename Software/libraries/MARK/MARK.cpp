@@ -58,7 +58,7 @@ MARK::~MARK(void){/*nothing to destruct*/}
  bool MARK::begin(void){
 	 
 	//<<LED BAR>>
-	Serial.println("LED BAR ");
+	Serial.println("- LED BAR ");
 	bar.begin();	
 
 	//<<LCD>>
@@ -400,7 +400,7 @@ void MARK::displayWifiAnswer(void)
 
 void MARK::test(void){
 	//test motors
-	Serial.println("Start motor forward - ");
+	Serial.print("Start motor forward - ");
 	setLeftMotor(100);
 	setRightMotor(100);
 	Serial.println("press enter if ok ");
@@ -409,8 +409,10 @@ void MARK::test(void){
 	stopLeftMotor();
 	stopRightMotor();
 
+
+
 	//test led bar
-	Serial.println("Start LED BAR - ");
+	Serial.print("Start LED BAR - ");
 
 	for(int i=10; i-- ;i==0){
 		Serial.println(i);
@@ -421,6 +423,7 @@ void MARK::test(void){
 	waitSerial();
 	setLedBarLevel(0);
 
+	//test lCD
 	Serial.println("Start LCD - ");
 	
 	int i=0;
@@ -430,12 +433,16 @@ void MARK::test(void){
 		delay(20);
 	
 	}
-
 	waitSerial();
-	setLedBarLevel(0);
 
+	//test Infrared
+	Serial.print("Start Infrared - ");
+	bool infraredvalue=getInfrared();
+	Serial.print("try to switch the IR sensor state ");
 
-
+	while(getInfrared()==infraredvalue){
+	}
+	Serial.print("Done !");
 }
 
 void MARK::waitSerial(void){
