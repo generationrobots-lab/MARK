@@ -77,6 +77,8 @@ public:
 	void sendWifiCmd(char *cmd);
 	void waitWifiResult(void);
 	void displayWifiAnswer(void);
+	//test
+	void test(void);
 	
 private:
 
@@ -105,6 +107,8 @@ private:
 	//<<functions>>	
 	static void leftCB ();
 	static void rightCB ();
+	void waitSerial(void);
+
 	
 };
 

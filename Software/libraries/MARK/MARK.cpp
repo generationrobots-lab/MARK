@@ -397,3 +397,54 @@ void MARK::displayWifiAnswer(void)
         delay(2000);
     }
 }
+
+void MARK::test(void){
+	//test motors
+	Serial.println("Start motor forward - ");
+	setLeftMotor(100);
+	setRightMotor(100);
+	Serial.println("press enter if ok ");
+	waitSerial();
+	delay(5);
+	stopLeftMotor();
+	stopRightMotor();
+
+	//test led bar
+	Serial.println("Start LED BAR - ");
+
+	for(int i=10; i-- ;i==0){
+		Serial.println(i);
+		setLedBarLevel(i);
+		delay(500);
+	}
+	Serial.println("press enter if ok ");
+	waitSerial();
+	setLedBarLevel(0);
+
+	Serial.println("Start LCD - ");
+	
+	int i=0;
+	while(i<255){
+		i++;
+		setLcdRGB(i, 255, 255-i); //set lcd color, return true if done
+		delay(20);
+	
+	}
+
+	waitSerial();
+	setLedBarLevel(0);
+
+
+
+}
+
+void MARK::waitSerial(void){
+ Serial.println("waiting input.. ");
+ while(!Serial.available()) ;
+ while(1){
+ 			while(Serial.available()){
+			if(Serial.read()==10)return; //wait CR
+
+		 } 
+	}
+}
