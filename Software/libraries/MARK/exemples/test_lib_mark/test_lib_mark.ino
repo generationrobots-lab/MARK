@@ -15,11 +15,12 @@ void setup() {
 void loop() {
   //bumper();
   //accelerometer();
-  Voltage();
+  //Voltage();
   //encoder();
   //distance();
   //servo();
-  joystick();
+  //joystick();
+  myrobot.test();
   delay(300);
 }
 

@@ -59,15 +59,16 @@ MARK::~MARK(void){/*nothing to destruct*/}
 	 
 	//<<LED BAR>>
 	Serial.println("- LED BAR ");
-	bar.begin();	
+	bar.begin();
 
 	//<<LCD>>
 	Serial.println("- LCD ");
-	lcd.begin(16, 2); //init lcd
+	lcd.begin(16, 2); //init lcd	
   
 	//<<MOTOR>>
 	Serial.println("- MOTOR ");
 	Motor.begin(I2C_ADDRESS); //init motors
+
 	
 	//<<WIFI>>
 	Serial.println("- WIFI ");
@@ -400,7 +401,7 @@ void MARK::displayWifiAnswer(void)
 
 void MARK::test(void){
 	//test motors
-	Serial.print("Start motor forward - ");
+	Serial.println("Start motor forward - ");
 	setLeftMotor(100);
 	setRightMotor(100);
 	Serial.println("press enter if ok ");
@@ -409,10 +410,8 @@ void MARK::test(void){
 	stopLeftMotor();
 	stopRightMotor();
 
-
-
 	//test led bar
-	Serial.print("Start LED BAR - ");
+	Serial.println("Start LED BAR - ");
 
 	for(int i=10; i-- ;i==0){
 		Serial.println(i);
@@ -423,7 +422,6 @@ void MARK::test(void){
 	waitSerial();
 	setLedBarLevel(0);
 
-	//test lCD
 	Serial.println("Start LCD - ");
 	
 	int i=0;
@@ -434,21 +432,119 @@ void MARK::test(void){
 	
 	}
 	waitSerial();
-
-	//test Infrared
-	Serial.print("Start Infrared - ");
-	bool infraredvalue=getInfrared();
-	Serial.print("try to switch the IR sensor state ");
-
-	while(getInfrared()==infraredvalue){
+	setLedBarLevel(0);
+	
+	//test accelerometer
+	Serial.println("Start ACCELEROMETER - ");
+	Serial.println("Turn robot x axe ");
+	while(getGyroX()>-200 && getGyroX()<200){
+		delay(10);
 	}
-	Serial.print("Done !");
+	delay(200);
+	Serial.println("Turn robot y axe ");
+	while(getGyroY()>-200 && getGyroY()<200){
+		delay(10);
+	}
+	delay(200);
+	Serial.println("Turn robot z axe ");
+	while(getGyroZ()>-200 && getGyroZ()<200){
+		delay(10);
+	}
+	delay(200);
+	Serial.println("Moove on X axe ");
+	while(getAccelX()>-0.6&&getAccelX()<0.6){
+		delay(10);
+	}
+	delay(200);
+	Serial.println("Moove on Y axe ");
+	while(getAccelY()>-0.6&&getAccelY()<0.6){
+		delay(10);
+	}
+	delay(200);
+	Serial.println("Moove on Z axe ");
+	while(getAccelZ()>0.4&&getAccelY()<1.3){
+		delay(10);
+	}
+	Serial.println("Accelerometer ok");
+	
+	//test temperature
+	Serial.print("temperature is of ");
+	Serial.print(getTemp());	
+	Serial.println(" degrees");
+	Serial.println("press enter if it's ok ");
+	waitSerial();
+	
+	//test joystick
+	Serial.println("Start JOYSTICK - ");
+	Serial.println("Press joystick");
+	while(getJoystickClic()!=1){
+		delay(10);
+	}
+	Serial.println("Moove joystick left");
+	while(getJoystickX()>300){
+		delay(10);
+	}
+	Serial.println("Moove joystick right");
+	while(getJoystickX()<700||getJoystickX()>1000){
+		delay(10);
+	}
+	Serial.println("Moove joystick backward");
+	while(getJoystickY()>300){
+		delay(10);
+	}
+	Serial.println("Moove joystick forward ");
+	while(getJoystickY()<700){
+		delay(10);
+	}
+	Serial.println("Joystick ok");
+	
+	//test bumper
+	Serial.println("Start BUMPER - ");
+	Serial.println("Press right");
+	while(getBumper("r")==0){
+		delay(10);
+	}
+	Serial.println("Press left");
+	while(getBumper("l")==0){
+		delay(10);
+	}
+	Serial.println("Bumper ok");
+	
+	//test ultrasonic
+	Serial.println("Start ULTRASONIC - ");
+	Serial.println("Put somethink under 20cm front of the robot");
+	while(getUsDist("f")>20){
+		delay(10);
+	}
+	Serial.println("Put somethink under 20cm back of the robot");
+	while(getUsDist("b")>20){
+		delay(10);
+	}Serial.println("Ultrasonic ok");
+	
+	//test servo
+	Serial.println("Start SERVO - ");
+	setServo(0);
+	Serial.println("set servo 0, press enter to valid");
+	waitSerial();
+	setServo(90);
+	Serial.println("set servo 90, press enter to valid");
+	waitSerial();
+	setServo(180);
+	Serial.println("set servo 180, press enter to valid");
+	waitSerial();
+	setServo(90);	Serial.println("Servo ok");
+	
+	Serial.println("end of the process");
+
 }
 
 void MARK::waitSerial(void){
- Serial.println("waiting input.. ");
- while(!Serial.available()) ;
- while(1){
+	while(Serial.read() != -1){
+		
+	}
+	Serial.println("waiting input.. ");
+	while(!Serial.available()) ;
+	while(1){
  			while(Serial.available()){
 			if(Serial.read()==10)return; //wait CR
 
