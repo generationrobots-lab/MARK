@@ -401,7 +401,7 @@ void MARK::displayWifiAnswer(void)
 
 void MARK::test(void){
 	//test motors
-	Serial.println("Start motor forward - ");
+	Serial.println("Start MOTOR forward - ");
 	setLeftMotor(100);
 	setRightMotor(100);
 	Serial.println("press enter if ok ");
@@ -409,10 +409,34 @@ void MARK::test(void){
 	delay(5);
 	stopLeftMotor();
 	stopRightMotor();
+	
+	//test encoder
+	Serial.println("Start ENCODER - ");
+	int enco_left_prev = getEncoder("l");
+	setLeftMotor(100);
+	delay(100);
+	setLeftMotor(0);
+	int enco_left = getEncoder("l");
+	if(enco_left_prev<enco_left){
+		testEncoderBackL();
+	}else{
+		Serial.println("you must exchange pos of 2 data wire of left encoder ");
+	}
+	delay(1000);
+
+	int enco_right_prev = getEncoder("r");
+	setRightMotor(100);
+	delay(100);
+	setRightMotor(0);
+	int enco_right = getEncoder("r");
+	if(enco_right_prev<enco_right){
+		testEncoderBackR();
+	}else{
+		Serial.println("you must exchange pos of 2 data wire of right encoder ");
+	}
 
 	//test led bar
 	Serial.println("Start LED BAR - ");
-
 	for(int i=10; i-- ;i==0){
 		Serial.println(i);
 		setLedBarLevel(i);
@@ -422,8 +446,8 @@ void MARK::test(void){
 	waitSerial();
 	setLedBarLevel(0);
 
+	//test LCD
 	Serial.println("Start LCD - ");
-	
 	int i=0;
 	while(i<255){
 		i++;
@@ -431,6 +455,7 @@ void MARK::test(void){
 		delay(20);
 	
 	}
+	Serial.println("press enter if ok ");
 	waitSerial();
 	setLedBarLevel(0);
 	
@@ -440,27 +465,27 @@ void MARK::test(void){
 	while(getGyroX()>-200 && getGyroX()<200){
 		delay(10);
 	}
-	delay(200);
+	delay(500);
 	Serial.println("Turn robot y axe ");
 	while(getGyroY()>-200 && getGyroY()<200){
 		delay(10);
 	}
-	delay(200);
+	delay(500);
 	Serial.println("Turn robot z axe ");
 	while(getGyroZ()>-200 && getGyroZ()<200){
 		delay(10);
 	}
-	delay(200);
+	delay(500);
 	Serial.println("Moove on X axe ");
-	while(getAccelX()>-0.6&&getAccelX()<0.6){
+	while(getAccelX()>-0.5&&getAccelX()<0.5){
 		delay(10);
 	}
-	delay(200);
+	delay(500);
 	Serial.println("Moove on Y axe ");
-	while(getAccelY()>-0.6&&getAccelY()<0.6){
+	while(getAccelY()>-0.5&&getAccelY()<0.5){
 		delay(10);
 	}
-	delay(200);
+	delay(500);
 	Serial.println("Moove on Z axe ");
 	while(getAccelZ()>0.4&&getAccelY()<1.3){
 		delay(10);
@@ -468,11 +493,20 @@ void MARK::test(void){
 	Serial.println("Accelerometer ok");
 	
 	//test temperature
+	Serial.println("Start TEMPERATURE - ");
 	Serial.print("temperature is of ");
 	Serial.print(getTemp());	
 	Serial.println(" degrees");
-	Serial.println("press enter if it's ok ");
+	Serial.println("press enter if ok ");
 	waitSerial();
+	
+	//test Infrared
+	Serial.println("Start INFRARED - ");
+	bool infraredvalue=getInfrared();
+	Serial.println("try to switch the IR sensor state ");
+ 	while(getInfrared()==infraredvalue){
+	}
+	Serial.println("Infrared ok");
 	
 	//test joystick
 	Serial.println("Start JOYSTICK - ");
@@ -480,19 +514,23 @@ void MARK::test(void){
 	while(getJoystickClic()!=1){
 		delay(10);
 	}
+	delay(500);
 	Serial.println("Moove joystick left");
 	while(getJoystickX()>300){
 		delay(10);
 	}
+	delay(500);
 	Serial.println("Moove joystick right");
 	while(getJoystickX()<700||getJoystickX()>1000){
 		delay(10);
 	}
-	Serial.println("Moove joystick backward");
+	delay(500);
+	Serial.println("Moove joystick forward");
 	while(getJoystickY()>300){
 		delay(10);
 	}
-	Serial.println("Moove joystick forward ");
+	delay(500);
+	Serial.println("Moove joystick backward");
 	while(getJoystickY()<700){
 		delay(10);
 	}
@@ -500,15 +538,17 @@ void MARK::test(void){
 	
 	//test bumper
 	Serial.println("Start BUMPER - ");
-	Serial.println("Press right");
+	Serial.println("Press right bumper");
 	while(getBumper("r")==0){
 		delay(10);
 	}
-	Serial.println("Press left");
+	delay(500);
+	Serial.println("Press left bumper");
 	while(getBumper("l")==0){
 		delay(10);
 	}
 	Serial.println("Bumper ok");
+	delay(500);
 	
 	//test ultrasonic
 	Serial.println("Start ULTRASONIC - ");
@@ -519,7 +559,8 @@ void MARK::test(void){
 	Serial.println("Put somethink under 20cm back of the robot");
 	while(getUsDist("b")>20){
 		delay(10);
-	}Serial.println("Ultrasonic ok");
+	}
+	Serial.println("Ultrasonic ok");
 	
 	//test servo
 	Serial.println("Start SERVO - ");
@@ -532,10 +573,45 @@ void MARK::test(void){
 	setServo(180);
 	Serial.println("set servo 180, press enter to valid");
 	waitSerial();
-	setServo(90);	Serial.println("Servo ok");
+	setServo(90);	
+	Serial.println("press enter if ok ");
+	waitSerial();
 	
+	
+	//test diviseur de tension
+	Serial.println("Start VOLTAGE DIVIDER - ");
+	Serial.println("Please put battery in and set on the switch");
+	if(getVoltage()>5000 && getVoltage()<9000){
+		Serial.println("Voltage divider ok");
+	}else{
+		Serial.println("Error voltage divider or battery");
+	}
+	delay(1000);
 	Serial.println("end of the process");
 
+}
+
+void MARK::testEncoderBackL(void){
+	delay(1000);
+	int enco_prev = getEncoder("l");
+	setLeftMotor(-100);
+	delay(100);
+	setLeftMotor(0);
+	int enco = getEncoder("l");
+	if(enco_prev>enco){
+		Serial.println("left encoder ok");
+	}
+}
+void MARK::testEncoderBackR(void){
+	delay(1000);
+	int enco_prev = getEncoder("R");
+	setRightMotor(-100);
+	delay(100);
+	setRightMotor(0);
+	int enco = getEncoder("r");
+	if(enco_prev>enco){
+		Serial.println("right encoder ok");
+	}
 }
 
 void MARK::waitSerial(void){

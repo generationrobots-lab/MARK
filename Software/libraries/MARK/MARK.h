@@ -99,6 +99,7 @@ private:
 	const byte joystickY = A3;
 	char ap_buf[30][16];
 	int ap_cnt =0;
+	
 
 
 
@@ -108,6 +109,8 @@ private:
 	static void leftCB ();
 	static void rightCB ();
 	void waitSerial(void);
+	void testEncoderBackL(void);
+	void testEncoderBackR(void);
 
 	
 };
