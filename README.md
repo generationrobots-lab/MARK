@@ -15,7 +15,7 @@ M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Me
 Page de téléchargement : <br />
 https://www.arduino.cc/en/Main/Software
 
-Tutoriels : <br />
+Tutoriels d'installation : <br />
 https://www.arduino.cc/en/Guide/Windows<br />
 https://www.arduino.cc/en/Guide/Linux <br />
 Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
@@ -23,9 +23,9 @@ Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
 ### M.A.R.K librairie
 
 1. [Télécharger le git](https://github.com/generationrobots-lab/MARK/archive/master.zip)
-2. Dézipper l'archive et placez-là où bon vous semble.
+2. Décompresser l'archive et placez-là où bon vous semble.
 3. Lancer l'IDE Arduino 
-4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraichement dézippée et rangée (exemple : D:\MARK-master\Software)
+4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraichement Décompressé et rangée (exemple : D:\MARK-master\Software)
 5. Dans l'IDE Arduino vous devriez voir apparaitre dans Ficher => Carnet de croquis les expemple pour débuter avec votre M.A.R.K.
 
 Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\..\Documents\Arduino).
