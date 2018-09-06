@@ -1,58 +1,77 @@
 # M.A.R.K
 
-//[![PyPI](https://img.shields.io/pypi/v/PyGithub.svg)](https://pypi.python.org/pypi/PyGithub)
+<!--- [![PyPI](https://img.shields.io/pypi/v/PyGithub.svg)](https://pypi.python.org/pypi/PyGithub) -->
 
 
-PyGitHub is a Python (2 and 3) library to access the [GitHub API v3] and [Github Enterprise API v3].
-This library enables you to manage [GitHub] resources such as repositories, user profiles, and organizations in your Python applications.
+M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Mega] et la librairie permetent une utilisation simple des principaux modules. L'[IDE Arduino] procure les outils nécessaires pour programmer le micro-controlleur de la carte [Arduino Mega], le celèbre [ATmega2560]. 
 
-[GitHub API v3]: https://developer.github.com/v3
-[Github Enterprise API v3]: https://developer.github.com/enterprise/2.13/v3/
-[GitHub]: https://github.com
+[IDE Arduino]: https://www.arduino.cc/en/Main/Software/
+[Arduino Mega]:https://www.generationrobots.com/fr/401945-arduino-mega-2560-rev3.html/
+[ATmega2560]: http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf/
 
-## Install
+## Installation
 
-```bash
-$ pip install PyGithub
-```
+### IDE Arduino
+
+https://www.arduino.cc/en/Main/Software
+
+https://www.arduino.cc/en/Guide/Windows
+https://www.arduino.cc/en/Guide/Linux
+Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
+
+### M.A.R.K librairie
+
+1. [Télécharger le git](https://github.com/generationrobots-lab/MARK/archive/master.zip)
+2. Dézipper l'archive et placez-là où bon vous semble.
+3. Lancer l'IDE Arduino 
+4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraichement dézippée et rangée (exemple : D:\MARK-master\Software)
+5. Dans l'IDE Arduino vous devriez voir apparaitre dans Ficher => Carnet de croquis les expemple pour débuter avec votre M.A.R.K.
+
+Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\[USR]\Documents\Arduino).
 
 ## Simple Demo
 
-```python
-from github import Github
+```c++
+#include <MARK.h>
 
-# First create a Github instance:
+MARK myrobot; //initialize an instance of the class
 
-# using username and password
-g = Github("user", "password")
+void setup() {
+  myrobot.begin();
+  delay(50);
+  myrobot.setLeftMotor(50);
+  myrobot.setRightMotor(50);
+  delay(3000); //forward 3s
+  myrobot.stopLeftMotor();
+  myrobot.stopRightMotor();
+}
 
-# or using an access token
-g = Github("access_token")
+void loop() {
+  //nothing
+  delay(300);
+}
 
-# Github Enterprise with custom hostname
-g = Github(base_url="https://{hostname}/api/v3", login_or_token="access_token")
-
-# Then play with your Github objects:
-for repo in g.get_user().get_repos():
-    print(repo.name)
 ```
 
 ## Documentation
 
-More information can be found on the [PyGitHub documentation site.](https://pygithub.readthedocs.io/en/latest/introduction.html)
+<!--- More information can be found on the [PyGitHub documentation site.](https://pygithub.readthedocs.io/en/latest/introduction.html)-->
 
-## Development
+## Developement
 
-### Contributing
+### Contribution
 
-Long-term discussion and bug reports are maintained via GitHub Issues.
-Code review is done via GitHub Pull Requests.
 
-For more information read [CONTRIBUTING.md].
+Pour toutes contribution au maintien ou à l'amélioration de la librairie, merci de faire un "pull request".
+Pour remonter des problèmes, merci d'ouvrir un ticket dans les "issues".
 
-[CONTRIBUTING.md]: /CONTRIBUTING.md
+<!---For more information read [CONTRIBUTING.md].-->
 
-### Maintainership
+<!---[CONTRIBUTING.md]: /CONTRIBUTING.md-->
 
-We're actively seeking maintainers that will triage issues and pull requests and cut releases.
-If you work on a project that leverages PyGitHub and have a vested interest in keeping the code alive and well, send an email to someone in the MAINTAINERS file.
+<!---### Maintainership-->
+
+<!---We're actively seeking maintainers that will triage issues and pull requests and cut releases.
+If you work on a project that leverages PyGitHub and have a vested interest in keeping the code alive and well, send an email to someone in the MAINTAINERS file.-->
+
+<!--- src ex : https://raw.githubusercontent.com/PyGithub/PyGithub/master/README.md -->
