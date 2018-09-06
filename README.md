@@ -3,7 +3,7 @@
 <!--- [![PyPI](https://img.shields.io/pypi/v/PyGithub.svg)](https://pypi.python.org/pypi/PyGithub) -->
 
 
-M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Mega] et la librairie permetent une utilisation simple des principaux modules. L'[IDE Arduino] procure les outils nécessaires pour programmer le micro-controlleur de la carte [Arduino Mega], le celèbre [ATmega2560]. 
+M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Mega] et la librairie permettent une utilisation simple des principaux modules. L'[IDE Arduino] procure les outils nécessaires pour programmer le micro-controlleur de la carte [Arduino Mega], le celèbre [ATmega2560]. 
 
 [IDE Arduino]: https://www.arduino.cc/en/Main/Software/
 [Arduino Mega]:https://www.generationrobots.com/fr/401945-arduino-mega-2560-rev3.html/
@@ -25,8 +25,8 @@ Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
 1. [Télécharger le git](https://github.com/generationrobots-lab/MARK/archive/master.zip)
 2. Décompresser l'archive et placez-là où bon vous semble.
 3. Lancer l'IDE Arduino 
-4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraichement Décompressé et rangée (exemple : D:\MARK-master\Software)
-5. Dans l'IDE Arduino vous devriez voir apparaitre dans Ficher => Carnet de croquis les expemple pour débuter avec votre M.A.R.K.
+4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraichement décompressée et rangée (exemple : D:\MARK-master\Software)
+5. Dans l'IDE Arduino, vous devriez voir apparaitre dans Ficher => Carnet de croquis les exemples pour débuter avec votre M.A.R.K.
 
 Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\..\Documents\Arduino).
 
@@ -63,7 +63,7 @@ void loop() {
 ### Contribution
 
 
-Pour toutes contribution au maintien ou à l'amélioration de la librairie, merci de faire un "pull request".  <br />
+Pour toutes contributions au maintien ou à l'amélioration de la librairie, merci de faire un "pull request".  <br />
 Pour remonter des problèmes, merci d'ouvrir un ticket dans les "issues".
 
 <!---For more information read [CONTRIBUTING.md].-->
