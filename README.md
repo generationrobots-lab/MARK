@@ -30,7 +30,7 @@ Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
 
 Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\..\Documents\Arduino).
 
-## Simple Demo
+## Code d'exemple 
 
 ```c++
 #include <MARK.h>
