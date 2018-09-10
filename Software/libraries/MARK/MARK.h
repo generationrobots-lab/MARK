@@ -40,8 +40,8 @@ public:
 	void lcdHome();
 	void lcdClear();
 	//Motors
-	void setLeftMotor(int _speed);
-	void setRightMotor(int _speed);
+	void setLeftMotor(int speed);
+	void setRightMotor(int speed);
 	void stopLeftMotor();
 	void stopRightMotor();
 	//Infrared
@@ -50,9 +50,9 @@ public:
 	float getVoltage(void);
 	int getBatteryLevel(void);
 	//Ultrasonic
-	int getUsDist(String _pos);
+	int getUsDist(String pos);
 	//Bumper
-	byte getBumper(String _side);
+	byte getBumper(String side);
 	byte getInterruptFlag();
 	void resetInterruptFlag();
 	//Joystick
@@ -71,8 +71,8 @@ public:
 	float getGyroZ(void);
 	float getTemp(void);
 	//Encoder
-	long getEncoder(String _side);
-	void resetEncoder(String _side);
+	long getEncoder(String side);
+	void resetEncoder(String side);
 	// WIFI
 	void sendWifiCmd(char *cmd);
 	void waitWifiResult(void);
