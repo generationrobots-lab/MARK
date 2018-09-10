@@ -172,11 +172,11 @@ bool MARK::setLedBarLevel(int data){
   }
 }
 
-byte MARK::getBumper(String _side){
-	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+byte MARK::getBumper(String side){
+	if(side == "Right" || side == "right" || side == "RIGHT" || side == "r" || side == "R"){
 		return(stateBumperRight);
 	}
-	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+	if(side == "Left" || _side == "left" || side == "LEFT" || side == "l" || side == "L"){
 		return(stateBumperLeft);
 	}
 }
@@ -192,12 +192,12 @@ void MARK::resetInterruptFlag(void){
 /***************************************************/
 /**************** MOTOR ****************************/
 /***************************************************/
-void MARK::setLeftMotor(int _speed){
-	Motor.speed(MOTOR1, _speed);
+void MARK::setLeftMotor(int speed){
+	Motor.speed(MOTOR1, speed);
 }
 
-void MARK::setRightMotor(int _speed){
-	Motor.speed(MOTOR2, _speed);
+void MARK::setRightMotor(int speed){
+	Motor.speed(MOTOR2, speed);
 }
 
 void MARK::stopLeftMotor(void){
@@ -229,11 +229,11 @@ int MARK::getBatteryLevel(void){
 /***************************************************/
 /************** ULTRASONIC *************************/
 /***************************************************/
-int MARK::getUsDist(String _pos){
-	if(_pos == "Front" || _pos == "front" || _pos == "FRONT" ||_pos == "F" || _pos == "f"){
+int MARK::getUsDist(String pos){
+	if(pos == "Front" || pos == "front" || pos == "FRONT" ||pos == "F" || pos == "f"){
 		return(usFront.MeasureInCentimeters());
 	}
-	if(_pos == "Back" || _pos == "back" || _pos == "BACK" || _pos == "B" ||_pos == "b"){
+	if(pos == "Back" || pos == "back" || pos == "BACK" || pos == "B" ||pos == "b"){
 		return(usBack.MeasureInCentimeters());
 	}
 }
@@ -259,8 +259,8 @@ bool MARK::getJoystickClic(void){
 /***************************************************/
 /************** SERVO ******************************/
 /***************************************************/
-void MARK::setServo(int _pos){
-	myServo.write(_pos);
+void MARK::setServo(int pos){
+	myServo.write(pos);
 }
 
 int MARK::getServo(void){
@@ -295,20 +295,20 @@ float MARK::getTemp(void){
 /***************************************************/
 /************** ENCODER ****************************/
 /***************************************************/
-long MARK::getEncoder(String _side){
-	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+long MARK::getEncoder(String side){
+	if(side == "Right" || side == "right" || side == "RIGHT" || side == "r" || side == "R"){
 		return(knobRight.read());
 	}
-	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+	if(side == "Left" || side == "left" || side == "LEFT" || side == "l" || side == "L"){
 		return(knobLeft.read());
 	}
 }
 
-void MARK::resetEncoder(String _side){
-	if(_side == "Right" || _side == "right" || _side == "RIGHT" || _side == "r" || _side == "R"){
+void MARK::resetEncoder(String side){
+	if(side == "Right" || side == "right" || side == "RIGHT" || side == "r" || side == "R"){
 		knobRight.write(0);
 	}
-	if(_side == "Left" || _side == "left" || _side == "LEFT" || _side == "l" || _side == "L"){
+	if(side == "Left" || side == "left" || side == "LEFT" || side == "l" || side == "L"){
 		knobLeft.write(0);
 	}
 }
