@@ -176,7 +176,7 @@ byte MARK::getBumper(String side){
 	if(side == "Right" || side == "right" || side == "RIGHT" || side == "r" || side == "R"){
 		return(stateBumperRight);
 	}
-	if(side == "Left" || _side == "left" || side == "LEFT" || side == "l" || side == "L"){
+	if(side == "Left" || side == "left" || side == "LEFT" || side == "l" || side == "L"){
 		return(stateBumperLeft);
 	}
 }
@@ -223,7 +223,7 @@ float MARK::getVoltage(void){
 	return((3 * voltage * 4980 / 1023.00)); //set gain to 3 on divider board
 }
 int MARK::getBatteryLevel(void){
-	return(map(getVoltage(), 6500, 8400, 0, 100));
+	return(map(getVoltage(), 6000, 8400, 0, 10));
 }
 
 /***************************************************/
