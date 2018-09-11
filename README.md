@@ -55,8 +55,7 @@ void loop() {
 ```
 
 ## Documentation
-
-<!--- More information can be found on the [PyGitHub documentation site.](https://pygithub.readthedocs.io/en/latest/introduction.html)-->
+Pour plus d'informations, merci de consulter le [wiki.](https://github.com/generationrobots-lab/MARK/wiki)
 
 ## Developement
 
