@@ -1,8 +1,5 @@
 # M.A.R.K
 
-<!--- [![PyPI](https://img.shields.io/pypi/v/PyGithub.svg)](https://pypi.python.org/pypi/PyGithub) -->
-
-
 M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Mega] et la librairie fournie permettent une utilisation simple des principaux modules. L'[IDE Arduino] procure les outils nécessaires pour programmer le micro-contrôleur de la carte [Arduino Mega], le celèbre [ATmega2560]. 
 
 [IDE Arduino]: https://www.arduino.cc/en/Main/Software/
@@ -23,10 +20,11 @@ Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
 ### M.A.R.K librairie
 
 1. [Télécharger le git](https://github.com/generationrobots-lab/MARK/archive/master.zip)
-2. Décompresser l'archive et la placer dans le répertoire de votre choix.
+2. Décompresser l'archive et la placer dans un répertoire de votre choix.
 3. Lancer l'IDE Arduino 
-4. Dans Fichier => Préférences => dans l'onglet Paramètres, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraîchement décompressée et rangée (exemple : D:\MARK-master\Software)
-5. Dans l'IDE Arduino, vous devriez voir apparaitre dans Ficher => Carnet de croquis les exemples pour débuter avec votre M.A.R.K.
+4. Dans  `Fichier => Préférences => Paramètres`, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraîchement décompressée et rangée (exemple : D:\MARK-master\Software)
+5. Dans l'IDE Arduino, vous devriez voir apparaitre dans `Ficher => Exemples => MARK` les exemples pour débuter avec votre M.A.R.K.
+
 
 Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\..\Documents\Arduino).
 
@@ -64,14 +62,3 @@ Pour plus d'informations, merci de consulter le [wiki.](https://github.com/gener
 
 Pour toute contribution au maintien ou à l'amélioration de la librairie, merci de faire un "pull request".  <br />
 Pour remonter des problèmes, merci d'ouvrir un ticket dans les "issues".
-
-<!---For more information read [CONTRIBUTING.md].-->
-
-<!---[CONTRIBUTING.md]: /CONTRIBUTING.md-->
-
-<!---### Maintainership-->
-
-<!---We're actively seeking maintainers that will triage issues and pull requests and cut releases.
-If you work on a project that leverages PyGitHub and have a vested interest in keeping the code alive and well, send an email to someone in the MAINTAINERS file.-->
-
-<!--- src ex : https://raw.githubusercontent.com/PyGithub/PyGithub/master/README.md -->
