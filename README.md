@@ -25,6 +25,7 @@ Le paquet Arduino est également présent dans les dépôts Universe d'Ubuntu.
 4. Dans  `Fichier => Préférences => Paramètres`, le champ "Emplacement du carnet de croquis" doit pointer vers le dossier "Software" de l'archive fraîchement décompressée et rangée (exemple : D:\MARK-master\Software)
 5. Dans l'IDE Arduino, vous devriez voir apparaitre dans `Ficher => Exemples => MARK` les exemples pour débuter avec votre M.A.R.K.
 
+
 Il est également possible de fusionner le dossier Software avec le dossier que vous utilisez déjà (par defaut C:\Users\..\Documents\Arduino).
 
 ## Code d'exemple 
