@@ -3,8 +3,8 @@
 M.A.R.K est un robot modulaire destiné à l'apprentissage. La carte [Arduino Mega] et la librairie fournie permettent une utilisation simple des principaux modules. L'[IDE Arduino] procure les outils nécessaires pour programmer le micro-contrôleur de la carte [Arduino Mega], le celèbre [ATmega2560]. 
 
 [IDE Arduino]: https://www.arduino.cc/en/Main/Software/
-[Arduino Mega]:https://www.generationrobots.com/fr/401945-arduino-mega-2560-rev3.html/
-[ATmega2560]: http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-2549-8-bit-AVR-Microcontroller-ATmega640-1280-1281-2560-2561_datasheet.pdf/
+[Arduino Mega]:https://www.generationrobots.com/fr/401945-arduino-mega-2560-rev3.html
+[ATmega2560]: http://ww1.microchip.com/downloads/en/devicedoc/atmel-2549-8-bit-avr-microcontroller-atmega640-1280-1281-2560-2561_datasheet.pdf
 
 ## Installation
 
