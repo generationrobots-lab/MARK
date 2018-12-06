@@ -399,6 +399,35 @@ void MARK::displayWifiAnswer(void)
     }
 }
 
+/***************************************************/
+/*************  buzzer  ****************************/
+/***************************************************/
+void MARK::playTone(int tone, int duration) {
+    for (long i = 0; i < duration * 1000L; i += tone * 2) {
+        digitalWrite(pinBuzzer, HIGH);
+        delayMicroseconds(tone);
+        digitalWrite(pinBuzzer, LOW);
+        delayMicroseconds(tone);
+    }
+}
+
+void MARK::playNote(char note, int duration) {
+    char names[] = { 'c', 'd', 'e', 'f', 'g', 'a', 'b', 'C' };
+    int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 };
+    duration *= tempo;
+    // play the tone corresponding to the note name
+    for (int i = 0; i < 8; i++) {
+        if (names[i] == note) {
+            playTone(tones[i], duration);
+        }
+    }
+    delay(tempo/2);
+}
+
+void MARK::setTempo(int tempo_input){
+	tempo = tempo_input;
+}
+
 void MARK::test(void){
 	//test motors
 	Serial.println("Start MOTOR forward - ");
