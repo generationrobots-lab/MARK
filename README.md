@@ -62,3 +62,4 @@ Pour plus d'informations, merci de consulter le [wiki.](https://github.com/gener
 
 Pour toute contribution au maintien ou à l'amélioration de la librairie, merci de faire un "pull request".  <br />
 Pour remonter des problèmes, merci d'ouvrir un ticket dans les "issues".
+
