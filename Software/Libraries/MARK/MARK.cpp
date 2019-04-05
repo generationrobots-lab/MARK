@@ -231,10 +231,10 @@ int MARK::getBatteryLevel(void){
 /***************************************************/
 int MARK::getUsDist(String pos){
 	if(pos == "Front" || pos == "front" || pos == "FRONT" ||pos == "F" || pos == "f"){
-		return(usFront.MeasureInCentimeters());
+		return(usFront.MeasureInCentimeters()*10);
 	}
 	if(pos == "Back" || pos == "back" || pos == "BACK" || pos == "B" ||pos == "b"){
-		return(usBack.MeasureInCentimeters());
+		return(usBack.MeasureInCentimeters()*10);
 	}
 }
 
