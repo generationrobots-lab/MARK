@@ -77,6 +77,9 @@ public:
 	void sendWifiCmd(char *cmd);
 	void waitWifiResult(void);
 	void displayWifiAnswer(void);
+	//Buzzer
+	void playNote(char note, int duration);
+	void setTempo(int tempo);
 	//test
 	void test(void);
 	
@@ -87,18 +90,20 @@ private:
 	const byte bumperLeft = 2;
 	const byte bumperRight = 3;
 	const byte infrared = 6;
-	const byte leftEncoA = 18;
-	const byte leftEncoB = 29;
-	const byte rightEncoA = 27;
-	const byte rightEncoB = 19;
 	const byte pinUsFront = 8;
 	const byte pinUsBack =	10;
-	const byte pinServo = 12;
+	const byte pinBuzzer = 12;
+	const byte pinServo = 13;
+	const byte leftEncoA = 18;
+	const byte rightEncoB = 19;
+	const byte rightEncoA = 27;
+	const byte leftEncoB = 29;
 	const byte battery = A0;
 	const byte joystickX = A2;
 	const byte joystickY = A3;
 	char ap_buf[30][16];
 	int ap_cnt =0;
+	int tempo =300;
 	
 
 
@@ -111,6 +116,7 @@ private:
 	void waitSerial(void);
 	void testEncoderBackL(void);
 	void testEncoderBackR(void);
+	void playTone(int tone, int duration);
 
 	
 };
