@@ -58,6 +58,7 @@ resetEncoder			KEYWORD2
 sendWifiCmd				KEYWORD2
 waitWifiResult			KEYWORD2
 displayWifiAnswer		KEYWORD2
+playNote			KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
