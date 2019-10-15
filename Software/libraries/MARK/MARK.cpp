@@ -56,7 +56,8 @@ MARK::MARK(void){
 MARK::~MARK(void){/*nothing to destruct*/}
  
  bool MARK::begin(void){
-	 
+ 	
+	Serial.begin(115200);
 	//<<LED BAR>>
 	Serial.println("- LED BAR ");
 	bar.begin();
